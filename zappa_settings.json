@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "historyskill.app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "project_name": "alexa-history-s",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-icpnnt2g5"
+    }
+}
