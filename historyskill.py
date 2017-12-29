@@ -27,13 +27,13 @@ URL_PREFIX = 'https://en.wikipedia.org/w/api.php?action=query&prop=extracts&form
 # number of events to read at a given time
 PAGINATION_SIZE = 3
 
-# length of delimter between individual events
+# length of delimiter between individual events
 DELIMITER_SIZE = 2
 
 # number of responses from wiki
 SIZE_OF_EVENTS = 10
 
-# defines session attribure key for event index
+# defines session attribute key for event index
 SESSION_INDEX = 'index'
 
 # event text for event date
@@ -90,10 +90,36 @@ def cancel():
 def session_ended():
     return "{}", 200
 
+# builds url, opens, reads, decodes and sends that to parse method
 def _get_json_events_from_wikipedia(month, date):
     url = "{}{}_{}".format(URL_PREFIX, month, date)
     data = urlopen(url).read().decode('utf-8')
     return _parse_json(data)
 
+def _parse_json(text):
+    events = []
+    try:
+        slice_start = text.index("\\nEvents\\n") + SIZE_OF_EVENTS
+        slice_end = text.index("\\n\\n\\nBirths")
+        text = text[slice_start:slice_end]
+    except ValueError:
+        return events
+    start_index = end_index = 0
+    done = False
+    while not done:
+        try:
+            end_index = text.index('\\n', start_index + DELIMITER_SIZE)
+            event_text = text[start_index:end_index]
+            start_index = end_index + 2
+        except ValueError:
+            event_text = text[start_index:]
+            done = True
+        # replaces dashes in wiki return
+        event_text = event_text.replace('\\u2013', '')
+        # add comma after year so Alexa pauses re.sub is regex substitute, <0>
+        event_text = re.sub('^\d+', r'\g<0>,', event_text)
+        events.append(event_text)
+        events.reverse()
+        return events
 
 
