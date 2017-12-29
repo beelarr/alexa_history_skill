@@ -77,7 +77,23 @@ def get_first_event(day):
         # support for alexa cards in alexa app
         return question(speech_output).reprompt(reprompt_text).simple_card(card_title, card_output)
 
+@ask.intent('AMAZON.StopIntent')
+def stop():
+    return statement("Goodbye")
 
+
+@ask.intent('AMAZON.CancelIntent')
+def cancel():
+    return statement("Goodbye")
+
+@ask.session_ended
+def session_ended():
+    return "{}", 200
+
+def _get_json_events_from_wikipedia(month, date):
+    url = "{}{}_{}".format(URL_PREFIX, month, date)
+    data = urlopen(url).read().decode('utf-8')
+    return _parse_json(data)
 
 
 
