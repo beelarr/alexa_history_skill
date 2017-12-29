@@ -1,5 +1,7 @@
 import logging
 
+import random
+
 # enables accessing operation system dependent functionality
 import os
 
@@ -141,7 +143,7 @@ def _parse_json(text):
         # add comma after year so Alexa pauses re.sub is regex substitute, <0>
         event_text = re.sub('^\d+', r'\g<0>,', event_text)
         events.append(event_text)
-    events.reverse()
+    random.shuffle(events)
     return events
 
 # https://stackoverflow.com/questions/419163/what-does-if-name-main-do
