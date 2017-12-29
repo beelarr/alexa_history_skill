@@ -43,8 +43,8 @@ SESSION_TEXT = 'text'
 
 @ask.launch
 def launch():
-    speech_output = 'What day do you want events for?'
-    reprompt_text = "You can get historical events for any day of the year. " + \
+    speech_output = 'History Scholar, What day do you want events for?'
+    reprompt_text = "Using History Scholar, you can get historical events for any day of the year. " + \
                     "For example, you could say today, or December twentieth. " + \
                     " Which day do you want?"
     return question(speech_output).reprompt(reprompt_text)
@@ -68,7 +68,7 @@ def get_first_event(day):
             card_output += "{}\n".format(events[i])
         speech_output += " Wanna go deeper into history?"
         card_output += " Wanna go deeper into history?"
-        reprompt_text = "You can get historical events for any day of the year. " + \
+        reprompt_text = "Using History Scholar, you can get historical events for any day of the year. " + \
                         "For example, you could say today, or July first. " + \
                         "Which day do you want?"
         session.attributes[SESSION_INDEX] = PAGINATION_SIZE
@@ -100,7 +100,7 @@ def get_next_event():
 
 @ask.intent('AMAZON.StopIntent')
 def stop():
-    return statement("Goodbye, for now")
+    return statement("Goodbye, for now.")
 
 
 @ask.intent('AMAZON.CancelIntent')
