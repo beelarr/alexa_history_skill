@@ -108,6 +108,12 @@ def cancel():
     return statement("Goodbye, for now")
 
 
+@ask.intent('AMAZON.HelpIntent')
+def help():
+    return statement()
+
+
+
 @ask.session_ended
 def session_ended():
     return "{}", 200
