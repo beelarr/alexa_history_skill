@@ -43,7 +43,7 @@ SESSION_TEXT = 'text'
 
 @ask.launch
 def launch():
-    speech_output = 'History Scholar, What day do you want events for?'
+    speech_output = 'History Scholar, What day do you want historical events for?'
     reprompt_text = "Using History Scholar, you can get historical events for any day of the year. " + \
                     "For example, you could say today, or December twentieth. " + \
                     " Which day do you want?"
